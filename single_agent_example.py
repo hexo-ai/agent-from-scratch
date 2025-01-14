@@ -29,6 +29,17 @@ agent = weather_agent
 while True:
     user_input = input("\033[90mUser\033[0m: ")
     messages.append({"role": "user", "content": user_input})
+    # Check for an exit condition
+    if user_input.lower() in {"exit", "quit"}:  # Accepts 'exit' or 'quit'
+        print("\033[90mExiting the chat. Goodbye!\033[0m")
+        break  # Exit the loop
+    inp = [{"role": "user", "content": user_input}]
+
+    # for simple streaming of the messages/conversation between user,Tools/Agents,model(ai)
+    # uncomment the below line  and comment the rest response code from line 45 to 49
+
+    # client.stream(agent,inp)
+
 
     response = client.run(agent=agent, messages=messages)
     pretty_print_messages(response.messages)
